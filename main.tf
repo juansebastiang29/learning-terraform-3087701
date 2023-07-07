@@ -32,6 +32,26 @@ module "vpc" {
   }
 }
 
+
+resource "aws_security_group" "blog" {
+  name = "log"
+  description = "Allow HTTPS in. Allow Everything out"
+
+  vpc_id = module.vpc.public_subnets[0]
+}
+
+resource "aws_security_group_rule" "blog_https_in" {
+  
+  type         = "ingress"
+  from_port    = 80
+  to_port      = 80
+  protocol     = "tcp"
+  cidr_blocks  = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.blog.id
+
+}
+
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.0"
@@ -98,24 +118,5 @@ module "alb" {
   }
 }
 
-
-resource "aws_security_group" "blog" {
-  name = "log"
-  description = "Allow HTTPS in. Allow Everything out"
-
-  vpc_id = module.vpc.public_subnets[0]
-}
-
-resource "aws_security_group_rule" "blog_https_in" {
-  
-  type         = "ingress"
-  from_port    = 80
-  to_port      = 80
-  protocol     = "tcp"
-  cidr_blocks  = ["0.0.0.0/0"]
-
-  security_group_id = aws_security_group.blog.id
-
-}
 
 
