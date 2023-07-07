@@ -61,7 +61,7 @@ resource "aws_security_group" "blog" {
   name = "log"
   description = "Allow HTTPS in. Allow Everything out"
 
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = module.vpc.public_subnets[0]
 }
 
 resource "aws_security_group_rule" "blog_https_in" {
