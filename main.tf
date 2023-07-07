@@ -76,6 +76,7 @@ resource "aws_instance" "blog" {
   tags = {
     Name = "HelloWorld"
   }
+  
 }
 
 module "alb" {
