@@ -36,7 +36,7 @@ resource "aws_secutiry_group" "blog" {
   vpc_id = data.aws.default.id
 }
 
-resource = "aws_secutiry_group_rule" "blog_https_in" {
+resource "aws_secutiry_group_rule" "blog_https_in" {
   
   type         = "ingress"
   from_port    = 80
